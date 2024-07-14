@@ -1,0 +1,48 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model DataSourceConnector {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  name        String?
+  typeField   String?
+  endpoint    String?
+  credentials Json?
+}
+
+model DataDestinationConnector {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  name        String?
+  typeField   String?
+  endpoint    String?
+  credentials Json?
+}
+
+model EtlExecution {
+  id            String    @id @default(cuid())
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  status        String?
+  logs          String?
+  finishedAt    DateTime?
+  startedAt     DateTime?
+  configuration String?
+}
+
+model EtlConfiguration {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  name        String?
+  description String?
+  dataSource  String?
+}
